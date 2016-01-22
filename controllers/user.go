@@ -9,7 +9,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/vikstedt/gorest/models"
+	"github.com/jvikstedt/gorest/models"
 )
 
 type UserController struct {

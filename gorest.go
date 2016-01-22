@@ -7,7 +7,7 @@ import (
 	"gopkg.in/mgo.v2"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/vikstedt/gorest/controllers"
+	"github.com/jvikstedt/gorest/controllers"
 )
 
 func main() {
