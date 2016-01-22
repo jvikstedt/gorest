@@ -2,19 +2,19 @@ package main
 
 import (
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
-)
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	w.Write([]byte("Hello World\n"))
-}
+	"github.com/julienschmidt/httprouter"
+	"github.com/vikstedt/gorest/controllers"
+)
 
 func main() {
 	fmt.Println("Starting gorest")
-
 	router := httprouter.New()
-	router.GET("/", Index)
+
+	uc := controllers.NewUserController()
+
+	router.GET("/users/:id", uc.GetUser)
 
 	http.ListenAndServe(":3000", router)
 }
