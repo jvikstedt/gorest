@@ -17,6 +17,7 @@ func main() {
 	uc := controllers.NewUserController(getSession())
 
 	router.GET("/users/:id", uc.GetUser)
+	router.GET("/users", uc.GetUsers)
 	router.POST("/users", uc.CreateUser)
 
 	http.ListenAndServe(":3000", router)

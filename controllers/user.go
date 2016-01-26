@@ -20,6 +20,19 @@ func NewUserController(s *mgo.Session) *UserController {
 	return &UserController{s}
 }
 
+func (uc UserController) GetUsers(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	var users []models.User
+	if err := uc.session.DB("gorest").C("users").Find(nil).All(&users); err == nil {
+
+	}
+
+	usersj, _ := json.Marshal(users)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", usersj)
+}
+
 func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
