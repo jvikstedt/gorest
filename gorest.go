@@ -19,6 +19,7 @@ func main() {
 	router.GET("/users/:id", uc.GetUser)
 	router.GET("/users", uc.GetUsers)
 	router.POST("/users", uc.CreateUser)
+	router.DELETE("/users/:id", uc.DeleteUser)
 
 	http.ListenAndServe(":3000", router)
 }

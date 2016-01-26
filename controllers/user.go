@@ -33,6 +33,24 @@ func (uc UserController) GetUsers(w http.ResponseWriter, r *http.Request, p http
 	fmt.Fprintf(w, "%s", usersj)
 }
 
+func (uc UserController) DeleteUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
+	if !bson.IsObjectIdHex(id) {
+		w.WriteHeader(404)
+		return
+	}
+
+	old := bson.ObjectIdHex(id)
+
+	if err := uc.session.DB("gorest").C("users").RemoveId(old); err == nil {
+		w.WriteHeader(404)
+		return
+	}
+
+	w.WriteHeader(200)
+}
+
 func (uc UserController) GetUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	id := p.ByName("id")
 
