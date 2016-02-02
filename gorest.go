@@ -20,6 +20,7 @@ func main() {
 	router.GET("/users", uc.GetUsers)
 	router.POST("/users", uc.CreateUser)
 	router.DELETE("/users/:id", uc.DeleteUser)
+	router.PATCH("/users/:id", uc.UpdateUser)
 
 	http.ListenAndServe(":3000", router)
 }

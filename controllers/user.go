@@ -90,3 +90,26 @@ func (uc UserController) CreateUser(w http.ResponseWriter, r *http.Request, p ht
 	w.WriteHeader(201)
 	fmt.Fprintf(w, "%s", uj)
 }
+
+func (uc UserController) UpdateUser(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	id := p.ByName("id")
+
+	if !bson.IsObjectIdHex(id) {
+		w.WriteHeader(404)
+		return
+	}
+
+	old := bson.ObjectIdHex(id)
+
+	u := models.User{}
+	json.NewDecoder(r.Body).Decode(&u)
+	u.Id = old
+
+	uc.session.DB("gorest").C("users").UpdateId(old, u)
+
+	uj, _ := json.Marshal(u)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	fmt.Fprintf(w, "%s", uj)
+}
